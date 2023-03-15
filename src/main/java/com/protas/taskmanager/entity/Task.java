@@ -35,4 +35,9 @@ public class Task {
         this.content = content;
     }
 
+    public Task(String title, String content, User user) {
+        this.title = title;
+        this.content = content;
+        this.user = user;
+    }
 }
