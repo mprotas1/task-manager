@@ -21,8 +21,8 @@ public class TaskService {
 
     // get all tasks from user
     public List<Task> getAllTasks(Long userId) {
-
         // in case of Lazy loading get tasks by "get" method
+        System.out.println("I'm here");
         List<Task> tasks = userRepository.findById(userId)
                 .orElseThrow(() -> new EntityNotFoundException("Did not find the ")).getTasks();
 
@@ -63,6 +63,20 @@ public class TaskService {
 
         taskToUpdate.setTitle(task.getTitle());
         taskToUpdate.setContent(task.getContent());
+        System.out.println("Task from json: " + task.isCompleted());
+        taskToUpdate.setCompleted(task.isCompleted());
+
+        return taskRepository.save(taskToUpdate);
+    }
+
+    public Task completeTask(Long userId, Long taskId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new EntityNotFoundException("Did not find the appropriate user entity"));
+
+        Task taskToUpdate = taskRepository.findByUserAndId(user, taskId)
+                .orElseThrow(() -> new EntityNotFoundException("Did not find the appropriate task entity"));
+
+        taskToUpdate.setCompleted(!taskToUpdate.isCompleted());
 
         return taskRepository.save(taskToUpdate);
     }

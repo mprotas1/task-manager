@@ -27,11 +27,19 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public void deleteUser(User user) {
-        userRepository.delete(user);
+    public void deleteUser(Long id) {
+        userRepository.deleteById(id);
     }
 
-    public void updateUser(User userToUpdate) {
-        userRepository.save(userToUpdate);
+    public void updateUser(Long id, User userToUpdate) {
+        // get user from DB
+        User userFromDb = userRepository.findById(id)
+                .orElseThrow(RuntimeException::new);
+
+        // update his fields with "userToUpdate" fields
+        userFromDb.setUsername(userToUpdate.getUsername());
+
+        // save the user
+        userRepository.save(userFromDb);
     }
 }
