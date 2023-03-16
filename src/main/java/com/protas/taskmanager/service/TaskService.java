@@ -22,6 +22,7 @@ public class TaskService {
     // get all tasks from user
     public List<Task> getAllTasks(Long userId) {
 
+        // in case of Lazy loading get tasks by "get" method
         List<Task> tasks = userRepository.findById(userId)
                 .orElseThrow(() -> new EntityNotFoundException("Did not find the ")).getTasks();
 
