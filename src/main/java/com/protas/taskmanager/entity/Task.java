@@ -5,6 +5,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import jakarta.validation.constraints.*;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "task")
@@ -27,6 +30,10 @@ public class Task {
     @Column(name ="is_completed", nullable = false)
     private boolean isCompleted;
 
+    @CreationTimestamp
+    @Column(name = "creation_time")
+    private LocalDateTime creationTime;
+
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -40,6 +47,7 @@ public class Task {
         this.title = title;
         this.content = content;
         this.isCompleted = false;
+        this.creationTime = LocalDateTime.now();
     }
 
     public Task(String title, String content, User user) {
@@ -47,6 +55,7 @@ public class Task {
         this.content = content;
         this.user = user;
         this.isCompleted = false;
+        this.creationTime = LocalDateTime.now();
     }
 
     public Task(String title, String content, boolean isCompleted, User user) {
@@ -54,5 +63,6 @@ public class Task {
         this.content = content;
         this.user = user;
         this.isCompleted = isCompleted;
+        this.creationTime = LocalDateTime.now();
     }
 }
