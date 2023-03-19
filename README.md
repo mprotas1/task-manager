@@ -130,4 +130,10 @@ Returns the list of all users existing in the system.
 | `title`      | `string` | **Required**. Task's title |
 | `content`      | `string` | **Required**. Content |
 
+## System requirments
 
+To run this application you need:
+
+* Java 17 (or higher)
+* Maven
+* MySQL DB with properly created schema
