@@ -24,6 +24,19 @@ public class UserService {
     }
 
     public void createUser(User user) {
+
+        // Validating if there is any user with the same ID or Username
+        if(user.getId() == null) {
+            if(userRepository.findByUsername(user.getUsername()).isPresent()) {
+                throw new IllegalArgumentException("User with username: " + user.getUsername() + " already exists!");
+            }
+        }
+        // Case: user passed in JSON does have ID
+        else if(userRepository.findById(user.getId()).isPresent()){
+            throw new IllegalArgumentException("User with id: " + user.getId() + " already exists!");
+        }
+
+        // Saving the user to repository
         userRepository.save(user);
     }
 
