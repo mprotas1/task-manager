@@ -33,4 +33,7 @@ public class User {
         this.username = username;
     }
 
+    public User(Long id, String username) {
+        this.username = username;
+    }
 }

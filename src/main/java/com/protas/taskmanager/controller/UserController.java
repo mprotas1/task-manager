@@ -32,14 +32,14 @@ public class UserController {
 
     // creating User with empty task list
     @PostMapping
-    public ResponseEntity<User> addStudent(@RequestBody User user) {
+    public ResponseEntity<User> addUser(@RequestBody User user) {
         userService.createUser(user);
         return ResponseEntity.ok(user);
     }
 
     // deleting User with specified Id
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteStudent(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
