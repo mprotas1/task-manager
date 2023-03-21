@@ -48,6 +48,10 @@ public class TaskService {
         List<Task> tasks = user.getTasks();
         Task taskToAdd = new Task(task.getTitle(), task.getContent(), user);
 
+        if(task.getTaskPriority() != null) {
+            taskToAdd.setTaskPriority(task.getTaskPriority());
+        }
+
         tasks.add(taskToAdd);
 
         return taskRepository.save(taskToAdd);
@@ -63,8 +67,11 @@ public class TaskService {
 
         taskToUpdate.setTitle(task.getTitle());
         taskToUpdate.setContent(task.getContent());
-        System.out.println("Task from json: " + task.isCompleted());
         taskToUpdate.setCompleted(task.isCompleted());
+
+        if(task.getTaskPriority() != null) {
+            taskToUpdate.setTaskPriority(task.getTaskPriority());
+        }
 
         return taskRepository.save(taskToUpdate);
     }

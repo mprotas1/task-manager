@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import jakarta.validation.constraints.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.validator.constraints.Range;
 
 import java.time.LocalDateTime;
 
@@ -33,6 +34,10 @@ public class Task {
     @CreationTimestamp
     @Column(name = "creation_time")
     private LocalDateTime creationTime;
+
+    @Column(name = "task_priority")
+    @Range(min = 0, max = 10, message = "The value should be between 0 and 10")
+    private Integer taskPriority;
 
     @JsonIgnore
     @ManyToOne

@@ -23,7 +23,7 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public void createUser(User user) {
+    public User createUser(User user) {
 
         // Validating if there is any user with the same ID or Username
         if(user.getId() == null) {
@@ -37,7 +37,7 @@ public class UserService {
         }
 
         // Saving the user to repository
-        userRepository.save(user);
+        return userRepository.save(user);
     }
 
     public void deleteUser(Long id) {
