@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import jakarta.validation.constraints.*;
+import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.validator.constraints.Range;
 
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
 @Table(name = "task")
 @Getter
 @Setter
+@ToString
 public class Task {
 
     @Id
