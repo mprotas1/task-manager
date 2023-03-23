@@ -4,6 +4,7 @@ import com.protas.taskmanager.entity.User;
 import com.protas.taskmanager.service.UserService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.ConstraintViolationException;
+import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
@@ -42,9 +44,10 @@ public class UserServiceTest {
         assertEquals(username, savedUser.getUsername());
     }
 
-    // POST method reject
+    // POST method reject with cause: username contains blank spaces
     @Test
     public void shouldNotCreateUserWithIncorrectUsername() {
+        //given
         String username = "John Doe"; // incorrect username with blank space
         User user = new User();
         user.setUsername(username);
@@ -52,6 +55,39 @@ public class UserServiceTest {
         // when + then
         assertThatThrownBy(() -> userService.createUser(user))
                 .isInstanceOf(ConstraintViolationException.class);
+    }
+
+    // POST method rejected with cause: username already taken
+    @Test
+    public void shouldNotCreateUserWithTakenUsername() {
+        // given
+        String username = "johndoe"; // incorrect username with blank space
+        User user = new User();
+        user.setUsername(username);
+
+        // when
+        userService.createUser(user);
+
+        // then
+        assertThatThrownBy(() -> userService.createUser(user))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    // GET ALL users positive result
+    @Test
+    public void shouldGetAllUsers() {
+        // given
+        String username = "test";
+
+        // when
+        userService.createUser(new User(username + 1));
+        userService.createUser(new User(username + 2));
+        userService.createUser(new User(username + 3));
+
+        // then
+        List<User> users = userService.getAllUsers();
+        Assertions.assertThat(users)
+                .hasSize(3);
     }
 
     // GET method positive result
