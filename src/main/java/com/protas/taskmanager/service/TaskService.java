@@ -5,6 +5,7 @@ import com.protas.taskmanager.entity.User;
 import com.protas.taskmanager.repository.TaskRepository;
 import com.protas.taskmanager.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +23,6 @@ public class TaskService {
     // get all tasks from user
     public List<Task> getAllTasks(Long userId) {
         // in case of Lazy loading get tasks by "get" method
-        System.out.println("I'm here");
         List<Task> tasks = userRepository.findById(userId)
                 .orElseThrow(() -> new EntityNotFoundException("Did not find the ")).getTasks();
 

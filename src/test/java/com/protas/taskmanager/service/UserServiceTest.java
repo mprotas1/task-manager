@@ -1,7 +1,6 @@
 package com.protas.taskmanager.service;
 
 import com.protas.taskmanager.entity.User;
-import com.protas.taskmanager.service.UserService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.ConstraintViolationException;
 import org.assertj.core.api.Assertions;
@@ -9,12 +8,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -68,7 +65,7 @@ public class UserServiceTest {
         // when
         userService.createUser(user);
 
-        // then
+        // when + then
         assertThatThrownBy(() -> userService.createUser(user))
                 .isInstanceOf(IllegalArgumentException.class);
     }

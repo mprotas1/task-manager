@@ -2,10 +2,8 @@ package com.protas.taskmanager.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import jakarta.validation.constraints.*;
-import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.validator.constraints.Range;
 
@@ -13,9 +11,10 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "task")
-@Getter
-@Setter
-@ToString
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class Task {
 
     @Id
@@ -45,10 +44,6 @@ public class Task {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-
-    public Task() {
-
-    }
 
     public Task(String title, String content) {
         this.title = title;
