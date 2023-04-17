@@ -67,4 +67,13 @@ public class Task {
         this.isCompleted = isCompleted;
         this.creationTime = LocalDateTime.now();
     }
+
+    public Task(String title, String content, boolean isCompleted, User user, Integer taskPriority) {
+        this.title = title;
+        this.content = content;
+        this.user = user;
+        this.isCompleted = isCompleted;
+        this.creationTime = LocalDateTime.now();
+        this.taskPriority = taskPriority;
+    }
 }
