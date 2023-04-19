@@ -11,6 +11,7 @@ Used techologies/frameworks such as:
 * Hibernate
 * MySQL
 * Jackson
+* Maven
 
 ## API Reference
 
