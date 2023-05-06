@@ -6,17 +6,25 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @ControllerAdvice
 public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(EntityNotFoundException.class)
-    protected ResponseEntity<Object> handleInvalidUser(RuntimeException exc) {
+    protected ResponseEntity<Object> handleInvalidUser(Exception exc) {
         UserErrorResponse response = new UserErrorResponse(HttpStatus.NOT_FOUND.value(),
                 exc.getMessage(),
                 System.currentTimeMillis());
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    protected ResponseEntity<Object> handleArgumentException(Exception exc) {
+        UserErrorResponse response = new UserErrorResponse(HttpStatus.BAD_REQUEST.value(),
+                exc.getMessage(),
+                System.currentTimeMillis());
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
 }
