@@ -13,8 +13,12 @@ import java.util.List;
 @Controller
 @RequestMapping("/user/{userId}/task")
 public class TaskController {
+    private final TaskService taskService;
+
     @Autowired
-    private TaskService taskService;
+    public TaskController(TaskService taskService) {
+        this.taskService = taskService;
+    }
 
     // get all tasks for specific User with {userId}
     @GetMapping
@@ -49,12 +53,16 @@ public class TaskController {
     public ResponseEntity<Task> updateTask(@PathVariable Long userId, @PathVariable Long id,
                                                 @RequestBody Task task) {
         Task taskToUpdate = taskService.updateTask(userId, id, task);
-        return ResponseEntity.status(HttpStatus.OK).body(taskToUpdate);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(taskToUpdate);
     }
 
     @PutMapping("/update/{id}")
     public ResponseEntity<Task> changeTaskStatus(@PathVariable Long userId, @PathVariable Long id) {
         Task taskToUpdate = taskService.completeTask(userId, id);
-        return ResponseEntity.status(HttpStatus.OK).body(taskToUpdate);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(taskToUpdate);
     }
 }

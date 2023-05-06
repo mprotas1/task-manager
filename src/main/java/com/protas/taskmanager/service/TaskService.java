@@ -5,28 +5,43 @@ import com.protas.taskmanager.entity.User;
 import com.protas.taskmanager.repository.TaskRepository;
 import com.protas.taskmanager.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 
 @Service
 public class TaskService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    private final TaskRepository taskRepository;
 
     @Autowired
-    private TaskRepository taskRepository;
+    public TaskService(UserRepository userRepository, TaskRepository taskRepository) {
+        this.userRepository = userRepository;
+        this.taskRepository = taskRepository;
+    }
 
     // get all tasks from user
     public List<Task> getAllTasks(Long userId) {
         // in case of Lazy loading get tasks by "get" method
         List<Task> tasks = userRepository.findById(userId)
-                .orElseThrow(() -> new EntityNotFoundException("Did not find the ")).getTasks();
+                .orElseThrow(() -> new EntityNotFoundException("Did not find the "))
+                .getTasks();
 
         return tasks;
+    }
+
+    // get all tasks of user sorted by the title
+    public List<Task> getTasksByTitle(Long userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new EntityNotFoundException("Did not find the user with id: " + userId))
+                .getTasks()
+                .stream()
+                .sorted(Comparator.comparing(c -> c.getTitle()))
+                .toList();
     }
 
     // get task with User {userId} and Task {taskId}
