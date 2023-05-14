@@ -29,12 +29,20 @@ Returns the list of all users existing in the system.
 ```
 Returns the Page consisting of page.Size users.
 
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `page`      | `integer` | **Required**. Number of page |
+
 #### Get all users as a Page sorted by their id
 
 ```http
   GET /user/{page}/sorted
 ```
 Returns the Page consisting of page.Size users sorted by id ascending.
+
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `page`      | `integer` | **Required**. Number of page |
 
 #### Get user
 
@@ -96,7 +104,7 @@ Returns the Page consisting of page.Size users sorted by id ascending.
 | Parameter | Type     | Description                       |
 | :-------- | :------- | :-------------------------------- |
 | `userId`      | `integer` | **Required**. User's id |
-| `page`      | `integer` | **Required**. User's id |
+| `page`      | `integer` | **Required**. Number of page |
   
 #### Get all user's tasks as a Page<Task> sorted
 
@@ -107,7 +115,7 @@ Returns the Page consisting of page.Size users sorted by id ascending.
 | Parameter | Type     | Description                       |
 | :-------- | :------- | :-------------------------------- |
 | `userId`      | `integer` | **Required**. User's id |
-| `page`      | `integer` | **Required**. User's id |
+| `page`      | `integer` | **Required**. Number of page |
 
 #### Get user's task with specific ID
 
