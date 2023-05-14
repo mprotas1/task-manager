@@ -17,7 +17,6 @@ import java.util.List;
 public class TaskController {
     private final TaskService taskService;
 
-    @Autowired
     public TaskController(TaskService taskService) {
         this.taskService = taskService;
     }
@@ -38,7 +37,8 @@ public class TaskController {
 
     // create new Task for User with {userId}
     @PostMapping
-    public ResponseEntity<Task> createTask(@PathVariable Long userId, @RequestBody Task task) {
+    public ResponseEntity<Task> createTask(@PathVariable Long userId,
+                                           @RequestBody Task task) {
         Task createdTask = taskService.createNewTask(userId, task);
         return ResponseEntity.accepted().body(createdTask);
     }

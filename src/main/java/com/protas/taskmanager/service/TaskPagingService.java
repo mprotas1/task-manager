@@ -27,7 +27,7 @@ public class TaskPagingService {
 
     public Page<Task> getAllTasksSorted(Long userId, Integer page) {
 
-        Sort sort = Sort.by(Sort.Direction.DESC, "title");
+        Sort sort = Sort.by(Sort.Direction.ASC, "title");
         PageRequest pageRequest = PageRequest.of(page, pageSize).withSort(sort);
         return taskPagingRepository
                 .findByUserId(userId, pageRequest);
