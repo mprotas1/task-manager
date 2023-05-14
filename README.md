@@ -1,13 +1,13 @@
 
 # Task manager
 
-Task manager is a simple, RESTful application to perform user's task management. It allows user to have its own account and to manage his tasks. Actions that may be taken on simple task are: updating one, getting task with specific ID, marking as 'done' etc. It runs on embedded Tomcat's server.
+Task manager is a simple, RESTful application to perform user's task management. It allows user to have its own account and to manage his tasks. Actions that may be taken on simple task are: updating one, getting task with specific ID, marking as 'done' etc. It is also possible to get the particular Page of list of all users/user's tasks. Runs on embedded Tomcat's server.
 
 ## Technology
 Used techologies/frameworks such as:
 * Java
 * Spring Boot
-* Spring Data
+* Spring Data JPA
 * Hibernate
 * MySQL
 * Jackson
@@ -22,6 +22,20 @@ Used techologies/frameworks such as:
 ```
 Returns the list of all users existing in the system.
 
+#### Get all users as a Page
+
+```http
+  GET /user/{page}
+```
+Returns the Page consisting of page.Size users.
+
+#### Get all users as a Page sorted by their id
+
+```http
+  GET /user/{page}/sorted
+```
+Returns the Page consisting of page.Size users sorted by id ascending.
+
 #### Get user
 
 ```http
@@ -30,7 +44,7 @@ Returns the list of all users existing in the system.
 
 | Parameter | Type     | Description                       |
 | :-------- | :------- | :-------------------------------- |
-| `id`      | `string` | **Required**. Id of user to fetch |
+| `id`      | `integer` | **Required**. Id of user to fetch |
 
 #### Add user
 
@@ -50,7 +64,7 @@ Returns the list of all users existing in the system.
 
 | Parameter | Type     | Description                       |
 | :-------- | :------- | :-------------------------------- |
-| `id`      | `string` | **Required**. User's id |
+| `id`      | `integer` | **Required**. User's id |
 
 #### Update existing user
 
@@ -60,7 +74,7 @@ Returns the list of all users existing in the system.
 
 | Parameter | Type     | Description                       |
 | :-------- | :------- | :-------------------------------- |
-| `id`      | `string` | **Required**. User's id |
+| `id`      | `integer` | **Required**. User's id |
 | `username`      | `string` | User's new username |
 
 #### Get all user's tasks
@@ -71,9 +85,31 @@ Returns the list of all users existing in the system.
 
 | Parameter | Type     | Description                       |
 | :-------- | :------- | :-------------------------------- |
-| `userId`      | `string` | **Required**. User's id |
+| `userId`      | `integer` | **Required**. User's id |
 
-#### Get all user's task with specific ID
+#### Get all user's tasks as a Page<Task>
+
+```http
+  GET /user/${userId}/task/page/${page}
+```
+
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `userId`      | `integer` | **Required**. User's id |
+| `page`      | `integer` | **Required**. User's id |
+  
+#### Get all user's tasks as a Page<Task> sorted
+
+```http
+  GET /user/${userId}/task/page/${page}/sorted
+```
+
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `userId`      | `integer` | **Required**. User's id |
+| `page`      | `integer` | **Required**. User's id |
+
+#### Get user's task with specific ID
 
 ```http
   GET /user/${userId}/task/${id}
@@ -81,7 +117,7 @@ Returns the list of all users existing in the system.
 
 | Parameter | Type     | Description                       |
 | :-------- | :------- | :-------------------------------- |
-| `userId`      | `string` | **Required**. User's id |
+| `userId`      | `integer` | **Required**. User's id |
 | `id`      | `string` | **Required**. Task's id |
 
 #### Get user's task with specific ID
@@ -92,8 +128,8 @@ Returns the list of all users existing in the system.
 
 | Parameter | Type     | Description                       |
 | :-------- | :------- | :-------------------------------- |
-| `userId`      | `string` | **Required**. User's id |
-| `id`      | `string` | **Required**. Task's id |
+| `userId`      | `integer` | **Required**. User's id |
+| `id`      | `integer` | **Required**. Task's id |
 
 #### Create task for user
 
@@ -103,7 +139,7 @@ Returns the list of all users existing in the system.
 
 | Parameter | Type     | Description                       |
 | :-------- | :------- | :-------------------------------- |
-| `userId`      | `string` | **Required**. User's id |
+| `userId`      | `integer` | **Required**. User's id |
 | `title`      | `string` | **Required**. Task's title |
 | `content`      | `string` | **Required**. Content |
 
@@ -115,8 +151,8 @@ Returns the list of all users existing in the system.
 
 | Parameter | Type     | Description                       |
 | :-------- | :------- | :-------------------------------- |
-| `userId`      | `string` | **Required**. User's id |
-| `id`      | `string` | **Required**. Task's id |
+| `userId`      | `integer` | **Required**. User's id |
+| `id`      | `integer` | **Required**. Task's id |
 
 #### Update task
 
@@ -126,8 +162,8 @@ Returns the list of all users existing in the system.
 
 | Parameter | Type     | Description                       |
 | :-------- | :------- | :-------------------------------- |
-| `userId`      | `string` | **Required**. User's id |
-| `id`      | `string` | **Required**. Task's id |
+| `userId`      | `integer` | **Required**. User's id |
+| `id`      | `integer` | **Required**. Task's id |
 | `title`      | `string` | **Required**. Task's title |
 | `content`      | `string` | **Required**. Content |
 
@@ -137,4 +173,3 @@ To run this application you need:
 
 * Java 17 (or higher)
 * Maven
-* MySQL DB with properly created schema
