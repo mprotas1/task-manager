@@ -1,0 +1,17 @@
+D:\Projects\Java Projects\taskmanager\src\main\java\com\protas\taskmanager\repository\TaskRepository.java
+D:\Projects\Java Projects\taskmanager\src\main\java\com\protas\taskmanager\repository\UserPagingRepository.java
+D:\Projects\Java Projects\taskmanager\src\main\java\com\protas\taskmanager\repository\TaskPagingRepository.java
+D:\Projects\Java Projects\taskmanager\src\main\java\com\protas\taskmanager\repository\UserRepository.java
+D:\Projects\Java Projects\taskmanager\src\main\java\com\protas\taskmanager\service\UserService.java
+D:\Projects\Java Projects\taskmanager\src\main\java\com\protas\taskmanager\TaskmanagerApplication.java
+D:\Projects\Java Projects\taskmanager\src\main\java\com\protas\taskmanager\controller\TaskPagesController.java
+D:\Projects\Java Projects\taskmanager\src\main\java\com\protas\taskmanager\controller\UserPagesController.java
+D:\Projects\Java Projects\taskmanager\src\main\java\com\protas\taskmanager\exception\RestResponseEntityExceptionHandler.java
+D:\Projects\Java Projects\taskmanager\src\main\java\com\protas\taskmanager\controller\UserController.java
+D:\Projects\Java Projects\taskmanager\src\main\java\com\protas\taskmanager\entity\Task.java
+D:\Projects\Java Projects\taskmanager\src\main\java\com\protas\taskmanager\entity\User.java
+D:\Projects\Java Projects\taskmanager\src\main\java\com\protas\taskmanager\service\TaskPagingService.java
+D:\Projects\Java Projects\taskmanager\src\main\java\com\protas\taskmanager\controller\TaskController.java
+D:\Projects\Java Projects\taskmanager\src\main\java\com\protas\taskmanager\model\UserErrorResponse.java
+D:\Projects\Java Projects\taskmanager\src\main\java\com\protas\taskmanager\service\UserPagingService.java
+D:\Projects\Java Projects\taskmanager\src\main\java\com\protas\taskmanager\service\TaskService.java
