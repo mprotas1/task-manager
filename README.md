@@ -1,7 +1,7 @@
 
 # Task manager
 
-Task manager is a simple, RESTful application to perform user's task management. It allows user to have its own account and to manage his tasks. Actions that may be taken on simple task are: updating one, getting task with specific ID, marking as 'done' etc. It is also possible to get the particular Page of list of all users/user's tasks. Runs on embedded Tomcat's server.
+Task manager is a simple, RESTful application to perform user's task management. It allows user to have its own account and to manage his tasks. Actions that may be taken on simple task are: updating one, getting task with specific ID, marking as 'done' etc. It is also possible to get the particular Page of list of all users/user's tasks. Runs on embedded Tomcat's server. When downloaded - can be run using docker container.
 
 ## Technology
 Used technologies/frameworks such as:
