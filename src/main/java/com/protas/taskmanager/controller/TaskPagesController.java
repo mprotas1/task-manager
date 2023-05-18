@@ -2,6 +2,7 @@ package com.protas.taskmanager.controller;
 
 import com.protas.taskmanager.entity.Task;
 import com.protas.taskmanager.service.TaskPagingService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,23 +12,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/user/{userId}/task")
+@RequestMapping("/user/{userId}/task/page")
+@RequiredArgsConstructor
 public class TaskPagesController {
 
     private final TaskPagingService taskPagingService;
 
-    public TaskPagesController(TaskPagingService taskPagingService) {
-        this.taskPagingService = taskPagingService;
-    }
-
-    @GetMapping("/page/{page}")
+    @GetMapping
     public ResponseEntity<Page<Task>> getAllUserTasksByPage(@PathVariable Long userId,
                                                             @PathVariable Integer page) {
         Page<Task> allTasks = taskPagingService.getAllTasks(userId, page);
         return ResponseEntity.status(HttpStatus.OK).body(allTasks);
     }
 
-    @GetMapping("/page/{page}/sorted")
+    @GetMapping("/sorted")
     public ResponseEntity<Page<Task>> getAllUserTasksByPageSorted(@PathVariable Long userId,
                                                             @PathVariable Integer page) {
         Page<Task> allTasks = taskPagingService.getAllTasksSorted(userId, page);

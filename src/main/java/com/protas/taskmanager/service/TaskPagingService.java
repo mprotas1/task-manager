@@ -2,21 +2,19 @@ package com.protas.taskmanager.service;
 
 import com.protas.taskmanager.entity.Task;
 import com.protas.taskmanager.repository.TaskPagingRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class TaskPagingService {
 
     private final TaskPagingRepository taskPagingRepository;
 
     private final int pageSize = 20;
-
-    public TaskPagingService(TaskPagingRepository taskPagingRepository) {
-        this.taskPagingRepository = taskPagingRepository;
-    }
 
     public Page<Task> getAllTasks(Long userId, Integer page) {
 

@@ -5,6 +5,7 @@ import com.protas.taskmanager.entity.User;
 import com.protas.taskmanager.repository.TaskRepository;
 import com.protas.taskmanager.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,17 +13,12 @@ import java.util.Comparator;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class TaskService {
 
     private final UserRepository userRepository;
 
     private final TaskRepository taskRepository;
-
-    @Autowired
-    public TaskService(UserRepository userRepository, TaskRepository taskRepository) {
-        this.userRepository = userRepository;
-        this.taskRepository = taskRepository;
-    }
 
     // get all tasks from user
     public List<Task> getAllTasks(Long userId) {

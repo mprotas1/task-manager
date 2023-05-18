@@ -1,20 +1,19 @@
 package com.protas.taskmanager.service;
 
 import com.protas.taskmanager.entity.User;
+import com.protas.taskmanager.model.UserRegisterDto;
 import com.protas.taskmanager.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
-
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
 
     public User getUserById(Long id) {
         return userRepository.findById(id)

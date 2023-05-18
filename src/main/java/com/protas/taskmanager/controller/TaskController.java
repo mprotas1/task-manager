@@ -3,23 +3,23 @@ package com.protas.taskmanager.controller;
 import com.protas.taskmanager.entity.Task;
 import com.protas.taskmanager.service.TaskPagingService;
 import com.protas.taskmanager.service.TaskService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
 @RequestMapping("/user/{userId}/task")
+@RequiredArgsConstructor
 public class TaskController {
     private final TaskService taskService;
-
-    public TaskController(TaskService taskService) {
-        this.taskService = taskService;
-    }
 
     // get all tasks for specific User with {userId}
     @GetMapping
