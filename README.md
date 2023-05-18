@@ -183,3 +183,11 @@ To run this application you need:
 * Java 17 (or higher)
 * Docker
 * Maven
+  
+## Installation
+
+Install the project using docker command:
+
+```bash
+  docker-compose up
+```
