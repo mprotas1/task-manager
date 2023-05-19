@@ -37,6 +37,8 @@ public class AuthenticationService {
         userRepository.save(user);
         String jwtToken = jwtUtils.generateToken(user);
 
+        System.out.println(">>> " + jwtToken);
+
         return new AuthenticationResponse(jwtToken);
     }
 

@@ -36,7 +36,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         String username;
 
         // if our request is not request containing the JWT token -> pass it to the next filter
-        if(!authHeader.startsWith("Bearer ") || authHeader == null) {
+        if(authHeader == null ||!authHeader.startsWith("Bearer ")) {
 
             // passing the request and response to the next filter in FilterChain
             filterChain.doFilter(request, response);
