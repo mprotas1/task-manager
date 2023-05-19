@@ -8,6 +8,7 @@ Used technologies/frameworks such as:
 * Java
 * Spring Boot
 * Spring Data JPA
+* Spring Security
 * Docker
 * Hibernate
 * MySQL
