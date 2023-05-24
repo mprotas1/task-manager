@@ -1,8 +1,8 @@
 package com.protas.taskmanager.controller;
 
+import com.protas.taskmanager.dto.UserRequestDto;
 import com.protas.taskmanager.model.AuthenticationRequest;
 import com.protas.taskmanager.model.AuthenticationResponse;
-import com.protas.taskmanager.model.UserRegisterDto;
 import com.protas.taskmanager.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,14 +17,13 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> register(
-            @RequestBody UserRegisterDto userRegisterDto
+            @RequestBody UserRequestDto userRequestDto
     ) {
-        authenticationService.register(userRegisterDto);
-        return ResponseEntity.ok(authenticationService.register(userRegisterDto));
+        return ResponseEntity.ok(authenticationService.register(userRequestDto));
     }
 
     @PostMapping("/authenticate")
-    public ResponseEntity<AuthenticationResponse> register(
+    public ResponseEntity<AuthenticationResponse> authenticate(
             @RequestBody AuthenticationRequest request
     ) {
         return ResponseEntity.ok(authenticationService.authenticate(request));

@@ -1,11 +1,12 @@
 package com.protas.taskmanager.controller;
 
-import com.protas.taskmanager.entity.User;
-import com.protas.taskmanager.model.UserErrorResponse;
+import com.protas.taskmanager.dto.UserRequestDto;
+import com.protas.taskmanager.dto.UserResponseDto;
 import com.protas.taskmanager.service.UserService;
-import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,38 +20,35 @@ public class UserController {
 
     private final UserService userService;
 
-    // get all Users
     @GetMapping
-    public ResponseEntity<List<User>> getAllUsers() {
-        List<User> users = userService.getAllUsers();
-        return ResponseEntity.status(HttpStatus.OK).body(users);
+    public ResponseEntity<List<UserResponseDto>> getAllUsers(
+            @PageableDefault(size = Integer.MAX_VALUE) Pageable pageable) {
+
+        List<UserResponseDto> resultList = userService.getAllUsers(pageable);
+        return ResponseEntity.status(HttpStatus.OK).body(resultList);
     }
 
-    // getting User by his ID
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable Long id)  {
-        User user = userService.getUserById(id);
+    public ResponseEntity<UserResponseDto> getUserById(@PathVariable Long id)  {
+        UserResponseDto user = userService.getUserById(id);
         return ResponseEntity.status(HttpStatus.OK).body(user);
     }
 
-    // creating User with empty task list
     @PostMapping
-    public ResponseEntity<User> addUser(@RequestBody User user) {
-        userService.createUser(user);
-        return ResponseEntity.ok(user);
+    public ResponseEntity<UserResponseDto> addUser(@RequestBody @Valid UserRequestDto user) {
+        UserResponseDto userResponse = userService.createUser(user);
+        return ResponseEntity.ok(userResponse);
     }
 
-    // deleting User with specified Id
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    // updating User with specified ID
     @PutMapping("/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable Long id,
-                                                 @RequestBody User user) {
+    public ResponseEntity<UserResponseDto> updateUser(@PathVariable Long id,
+                                                 @RequestBody @Valid UserRequestDto user) {
         userService.updateUser(id, user);
         return ResponseEntity.status(HttpStatus.OK).build();
     }

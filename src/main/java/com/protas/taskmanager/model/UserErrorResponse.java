@@ -4,5 +4,4 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-public record UserErrorResponse(int status, String message, long timeStamp)
-{ }
+public record UserErrorResponse(int status, String message, long timeStamp) { }

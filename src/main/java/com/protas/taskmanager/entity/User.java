@@ -1,5 +1,6 @@
 package com.protas.taskmanager.entity;
 
+import com.protas.taskmanager.dto.UserResponseDto;
 import com.protas.taskmanager.model.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -19,11 +20,9 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 public class User implements UserDetails {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "name", unique = true)
@@ -32,8 +31,13 @@ public class User implements UserDetails {
     @Pattern(regexp = "\\S+", message = "Username cannot contain spaces")
     private String username;
 
+    @Column(name = "email", unique = true)
+    @Pattern(regexp = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$", message = "Email address is not correct")
     private String email;
 
+    @Size(min = 5, max = 12)
+    @NotBlank
+    @Pattern(regexp = "^(?=.*[A-Z])(?=.*[0-9]).+$")
     private String password;
 
     @Enumerated(EnumType.STRING)
@@ -83,4 +87,5 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
 }

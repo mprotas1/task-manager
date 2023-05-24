@@ -1,6 +1,7 @@
 package com.protas.taskmanager.exception;
 
 import com.protas.taskmanager.model.UserErrorResponse;
+import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,5 +27,13 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
                 exc.getMessage(),
                 System.currentTimeMillis());
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ExpiredJwtException.class)
+    protected ResponseEntity<Object> handleJwtExpiredException(Exception exc) {
+        UserErrorResponse response = new UserErrorResponse(HttpStatus.UNAUTHORIZED.value(),
+                exc.getMessage(),
+                System.currentTimeMillis());
+        return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
     }
 }

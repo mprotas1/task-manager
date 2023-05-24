@@ -1,59 +1,72 @@
 package com.protas.taskmanager.service;
 
+import com.protas.taskmanager.dto.UserRequestDto;
+import com.protas.taskmanager.dto.UserResponseDto;
 import com.protas.taskmanager.entity.User;
-import com.protas.taskmanager.model.UserRegisterDto;
 import com.protas.taskmanager.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
 
-    public User getUserById(Long id) {
-        return userRepository.findById(id)
+    private final ModelMapper modelMapper;
+
+    private final PasswordEncoder passwordEncoder;
+
+    public UserResponseDto getUserById(Long id) {
+        User user = userRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Did not find the entity with id: " + id));
+
+        return convertToDto(user);
     }
 
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
+    public List<UserResponseDto> getAllUsers(Pageable pageable) {
+        return userRepository.findAll(pageable)
+                .stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
     }
 
-    public User createUser(User user) {
-
-        // Validating if there is any user with the same ID or Username
-        if(user.getId() == null) {
-            if(userRepository.findByUsername(user.getUsername()).isPresent()) {
-                throw new IllegalArgumentException("User with username: " + user.getUsername() + " already exists!");
-            }
-        }
-        // Case: user passed in JSON does have ID
-        else if(userRepository.findById(user.getId()).isPresent()){
-            throw new IllegalArgumentException("User with id: " + user.getId() + " already exists!");
-        }
-
-        // Saving the user to repository
-        return userRepository.save(user);
+    public UserResponseDto createUser(UserRequestDto user) {
+        User createdUser = userRepository.save(this.convertToEntity(user));
+        return convertToDto(createdUser);
     }
 
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
     }
 
-    public User updateUser(Long id, User userToUpdate) {
-        // get user from DB
+    public UserResponseDto updateUser(Long id, UserRequestDto userToUpdate) {
+
         User userFromDb = userRepository.findById(id)
-                .orElseThrow(RuntimeException::new);
+                .orElseThrow(() -> new EntityNotFoundException("Did not find the entity with id: " + id));
 
-        // update his fields with "userToUpdate" fields
         userFromDb.setUsername(userToUpdate.getUsername());
+        userFromDb.setPassword(passwordEncoder.encode(userToUpdate.getPassword()));
+        userFromDb.setEmail(userToUpdate.getEmail());
 
-        // save the user
-        return userRepository.save(userFromDb);
+        User user = userRepository.save(userFromDb);
+        return convertToDto(user);
     }
+
+    public UserResponseDto convertToDto(User user) {
+        UserResponseDto userDto = modelMapper.map(user, UserResponseDto.class);
+        return userDto;
+    }
+
+    private User convertToEntity(UserRequestDto userDto) {
+        User user = modelMapper.map(userDto, User.class);
+        return user;
+    }
+
 }

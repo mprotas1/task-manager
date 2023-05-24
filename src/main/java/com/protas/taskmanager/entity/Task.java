@@ -14,11 +14,9 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 public class Task {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "title")
@@ -38,6 +36,7 @@ public class Task {
 
     @Column(name = "task_priority")
     @Range(min = 0, max = 10, message = "The value should be between 0 and 10")
+    @NotNull
     private Integer taskPriority;
 
     @JsonIgnore
@@ -76,4 +75,9 @@ public class Task {
         this.creationTime = LocalDateTime.now();
         this.taskPriority = taskPriority;
     }
+
+    public void setTaskPriority(@Range(min = 0, max = 10) Integer taskPriority) {
+        this.taskPriority = taskPriority;
+    }
+
 }
