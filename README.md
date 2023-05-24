@@ -22,7 +22,6 @@ Task manager is a simple, RESTful application to perform user's task management.
 ```http
   GET /user/
 ```
-Returns the Page consisting of page.Size users.
 
 | Parameter | Type     | Description                       |
 | :-------- | :------- | :-------------------------------- |
