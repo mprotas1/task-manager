@@ -20,7 +20,7 @@ Task manager is a simple, RESTful application to perform user's task management.
 #### Get all users
 
 ```http
-  GET /user/{page}
+  GET /user/
 ```
 Returns the Page consisting of page.Size users.
 
@@ -141,6 +141,29 @@ Returns the Page consisting of page.Size users.
 | `id`      | `integer` | **Required**. Task's id |
 | `title`      | `string` | **Required**. Task's title |
 | `content`      | `string` | **Required**. Content |
+
+#### Register user
+
+```http
+  POST /auth/register
+```
+
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `username`      | `string` | **Required**. User's username |
+| `email`      | `string` | **Required**. User's email |
+| `password`      | `string` | **Required**. User's password |
+
+#### Authenticate user
+
+```http
+  POST /auth/authenticate
+```
+
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `username`      | `string` | **Required**. User's username |
+| `password`      | `string` | **Required**. User's password |
 
 ## System requirments
 
