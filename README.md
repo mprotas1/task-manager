@@ -3,12 +3,12 @@
 
 Task manager is a simple, RESTful application to perform user's task management. It allows user to have its own account and to manage his tasks. Actions that may be taken on simple task are: updating one, getting task with specific ID, marking as 'done' etc. It is also possible to get the particular Page of list of all users/user's tasks. Runs on embedded Tomcat's server. When downloaded - can be run using docker container.
 
-## Technology
-Used technologies/frameworks such as:
+## Technology stack:
 * Java
 * Spring Boot
 * Spring Data JPA
 * Spring Security
+* JWT token
 * Docker
 * Hibernate
 * MySQL
@@ -22,29 +22,12 @@ Used technologies/frameworks such as:
 ```http
   GET /user/
 ```
-Returns the list of all users existing in the system.
-
-#### Get all users as a Page
-
-```http
-  GET /user/{page}
-```
-Returns the Page consisting of page.Size users.
 
 | Parameter | Type     | Description                       |
 | :-------- | :------- | :-------------------------------- |
-| `page`      | `integer` | **Required**. Number of page |
-
-#### Get all users as a Page sorted by their id
-
-```http
-  GET /user/{page}/sorted
-```
-Returns the Page consisting of page.Size users sorted by id ascending.
-
-| Parameter | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
-| `page`      | `integer` | **Required**. Number of page |
+| `page`      | `integer` | **Optional**. Number of page |
+| `pageSize`  | `integer` | **Optional**. Size of page |
+| `sort`      | `string` | **Optional**. Sorting of page |
 
 #### Get user
 
@@ -96,28 +79,9 @@ Returns the Page consisting of page.Size users sorted by id ascending.
 | Parameter | Type     | Description                       |
 | :-------- | :------- | :-------------------------------- |
 | `userId`      | `integer` | **Required**. User's id |
-
-#### Get all user's tasks as a Page<Task>
-
-```http
-  GET /user/${userId}/task/page/${page}
-```
-
-| Parameter | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
-| `userId`      | `integer` | **Required**. User's id |
-| `page`      | `integer` | **Required**. Number of page |
-  
-#### Get all user's tasks as a Page<Task> sorted
-
-```http
-  GET /user/${userId}/task/page/${page}/sorted
-```
-
-| Parameter | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
-| `userId`      | `integer` | **Required**. User's id |
-| `page`      | `integer` | **Required**. Number of page |
+| `page`      | `integer` | **Optional**. Number of page |
+| `pageSize`  | `integer` | **Optional**. Size of page |
+| `sort`      | `string` | **Optional**. Sorting of page |
 
 #### Get user's task with specific ID
 
@@ -176,6 +140,29 @@ Returns the Page consisting of page.Size users sorted by id ascending.
 | `id`      | `integer` | **Required**. Task's id |
 | `title`      | `string` | **Required**. Task's title |
 | `content`      | `string` | **Required**. Content |
+
+#### Register user
+
+```http
+  POST /auth/register
+```
+
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `username`      | `string` | **Required**. User's username |
+| `email`      | `string` | **Required**. User's email |
+| `password`      | `string` | **Required**. User's password |
+
+#### Authenticate user
+
+```http
+  POST /auth/authenticate
+```
+
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `username`      | `string` | **Required**. User's username |
+| `password`      | `string` | **Required**. User's password |
 
 ## System requirments
 
