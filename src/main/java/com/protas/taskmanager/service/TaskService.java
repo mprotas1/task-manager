@@ -27,15 +27,6 @@ public class TaskService {
         return tasks;
     }
 
-    public List<Task> getTasksByTitle(Long userId) {
-        return userRepository.findById(userId)
-                .orElseThrow(() -> new EntityNotFoundException("Did not find the user with id: " + userId))
-                .getTasks()
-                .stream()
-                .sorted(Comparator.comparing(Task::getTitle))
-                .toList();
-    }
-
     public Task getTask(Long userId, Long taskId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new EntityNotFoundException("Did not find the appropriate entity"));
